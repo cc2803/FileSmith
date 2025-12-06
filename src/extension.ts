@@ -28,14 +28,14 @@ export function activate(context: vscode.ExtensionContext) {
 			'  ios::sync_with_stdio(false);',
 			'  cin.tie(nullptr);',
 			'  ',
-			'  int t; cin >> t;',
+			'  ${1:int t;} cin >> t;',
 			'  while (t--) {',
-			'    // your code here',
+			'    ${2:// your code here}',
 			'  }',
 			'  ',
 			'  return 0;',
 			'}'
-		].join('\\n'),
+		].join('\n'),
 
 		'python': [
 			'#!/usr/bin/env python3',
@@ -44,14 +44,14 @@ export function activate(context: vscode.ExtensionContext) {
 			'data = input().split()',
 			'',
 			'index = 0',
-			't = int(data[index])',
+			'${1:t} = int(data[index])',
 			'index += 1',
 			'',
 			'for _ in range(t):',
-			'  # your code here',
+			'  ${2:# your code here}',
 			'',
-			'# print("Hello World!")'
-		].join('\\n')
+			'${3:print("Hello World!")}'
+		].join('\n')
 		};
 
 		// Get user config overrides
@@ -67,11 +67,18 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		vscode.window.showInformationMessage(`Inserting ${languageId} boilerplate...`);
-		// Phase 4 will insert this as snippet
 
-		//Extension activity status Message
-		vscode.window.showInformationMessage('Filesmith: Boilerplate command ready!');
-    // TODO: Phase 3 will add real boilerplate logic here
+		// PHASE 4: Insert snippet at cursor
+		const snippet = new vscode.SnippetString(template);
+		const success = await editor.insertSnippet(snippet, editor.selection.active);
+
+		if (success) {
+		vscode.window.showInformationMessage('Boilerplate inserted! Use Tab to navigate placeholders.');
+		} else {
+		vscode.window.showErrorMessage('Failed to insert boilerplate');
+		}
+		// //Extension activity status Message
+		// vscode.window.showInformationMessage('Filesmith: Boilerplate command ready!');
   });
 
   context.subscriptions.push(disposable);
