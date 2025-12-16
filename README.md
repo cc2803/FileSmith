@@ -1,71 +1,86 @@
-# filesmith README
+# FileSmith ⚒️
 
-This is the README for your extension "filesmith". After writing up a brief description, we recommend including the following sections.
+FileSmith is a lightweight VS Code extension that helps you quickly insert **language-specific boilerplate code** using a fast, keyboard-driven workflow.
 
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+It’s built for developers who frequently start from the same skeletons — competitive programmers, script writers, and anyone bootstrapping projects.
 
 ---
 
-## Following extension guidelines
+## What it does
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+* Detects the language of the active file automatically
+* Shows relevant boilerplate templates via a QuickPick menu
+* Inserts templates as **interactive snippets** (tab through placeholders)
+* Lets you create new templates directly from real code files
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+No snippet JSON pain. No escaping newlines.
 
-## Working with Markdown
+---
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+## Key features
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+* **Single command**: `Filesmith: Insert Boilerplate`
+* **Keyboard-first**: bind it to a shortcut and stay in flow
+* **Language aware**: templates are scoped per `languageId`
+* **Multiple templates per language**
+* **Workspace or user-level templates**
+* **Graceful UX** with friendly error handling
 
-## For more information
+---
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## Creating templates (recommended workflow)
 
-**Enjoy!**
+1. Write your boilerplate in a normal source file (`.cpp`, `.py`, etc.)
+2. Run **Filesmith: Insert Boilerplate**
+3. Choose **Create new template from current file…**
+4. Give it a name
+
+That’s it — the file becomes a reusable template for that language.
+
+---
+
+## Snippet support
+
+Templates use VS Code’s snippet syntax:
+
+```text
+${1:first placeholder}
+${2:next placeholder}
+```
+
+After insertion, press `Tab` to jump between placeholders.
+
+---
+
+## Configuration
+
+Templates are stored in settings:
+
+```jsonc
+"filesmith.templates": {
+  "cpp": {
+    "Default main": "/* code */",
+    "My CP Template": "/* code */"
+  },
+  "python": {
+    "Default script": "/* code */"
+  }
+}
+```
+
+They can live in:
+
+* User settings (global)
+* Workspace settings (`.vscode/settings.json`)
+
+---
+
+## Built with
+
+* VS Code Extension API
+* `vscode.SnippetString`
+* QuickPick-based UI
+
+---
+
+FileSmith focuses on speed, simplicity, and working with **real code**, not configuration gymnastics.
