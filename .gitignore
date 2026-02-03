@@ -29,3 +29,6 @@ Thumbs.db
 
 #Extension tests
 src/test
+
+#Images
+*.png

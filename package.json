@@ -3,12 +3,18 @@
   "displayName": "FileSmith",
   "description": "Customizable boilerplate code generator",
   "version": "0.0.1",
+  "publisher": "filesmith",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cc2803/FileSmith.git"
+  },
   "engines": {
     "vscode": "^1.106.1"
   },
   "categories": [
     "Other"
   ],
+  "icon":"monitor.ico",
   "activationEvents": [
   "onCommand:filesmith.insertBoilerplate"
   ],
